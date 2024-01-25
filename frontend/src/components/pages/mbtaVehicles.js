@@ -31,6 +31,39 @@ function check_current_status(current_status) {
     return current_status
   }
 }
+let current_bearing = "Empty"
+
+function bearing_to_compass_converter(current_bearing){
+  if (current_bearing >= 338 || current_bearing <= 22){
+    return "North"
+  }
+  else if (current_bearing >= 23 && current_bearing <= 67){
+    return "Northeast"
+  }
+  else if (current_bearing >= 68 && current_bearing <= 112){
+    return "East"
+  }
+  else if (current_bearing >= 113 && current_bearing <= 157){
+    return "Southeast"
+  }
+  else if (current_bearing >= 158 && current_bearing <= 202){
+    return "South"
+  }
+  else if (current_bearing >= 203 && current_bearing <= 247){
+    return "Southwest"
+  }
+  else if (current_bearing >= 248 && current_bearing <= 292){
+    return "West"
+  }
+  else if (current_bearing >= 293 && current_bearing <= 337){
+    return "Northwest"
+  }
+  else {
+    return current_bearing
+  }
+}
+
+
 let current_status = "Empty"
   return (
     <div style= {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -42,20 +75,11 @@ let current_status = "Empty"
       >
         <Card.Body>
         <Card.Title><font size = "5">Vehicle id: {vehicle.attributes.label}</font></Card.Title>
-        <Card.Text>Bearing: {vehicle.attributes.bearing}<br></br>
+        <Card.Text>Bearing: {bearing_to_compass_converter(vehicle.attributes.bearing)}<br></br>
         Current Status: {current_status = check_current_status(vehicle.attributes.current_status)}</Card.Text>        
         </Card.Body>
       </Card>
-      ))}
-
-
-        <h1>Vehicles</h1>
-      {vehicles.map(vehicle => (
-        <div key={vehicle.id}>
-          <h3>{vehicle.attributes.header}</h3>
-          <p>{vehicle.attributes.description}</p>
-        </div>
-      ))}
+      ))}        
     </div>
   );
 }
